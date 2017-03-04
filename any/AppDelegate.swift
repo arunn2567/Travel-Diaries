@@ -12,10 +12,25 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+  var ownerDetails:PostRide!
 
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        KCSClient.sharedClient().initializeKinveyServiceForAppKey(
+            "kid_bkLfK2JsgZ",
+            withAppSecret: "7492124aef534bc1995ecf66e2791c0f",
+            usingOptions: nil
+        )
+        
+        KCSPing.pingKinveyWithBlock { (result: KCSPingResult!) -> Void in
+            if result.pingWasSuccessful {
+                NSLog("Kinvey Ping Success")
+            } else {
+                NSLog("Kinvey Ping Failed")
+            }
+        }
         return true
     }
 
